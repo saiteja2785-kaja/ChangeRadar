@@ -1,0 +1,37 @@
+diff --git a/demo_repo/api/products.py b/demo_repo/api/products.py
+index d07fef0..245824c 100644
+--- a/demo_repo/api/products.py
++++ b/demo_repo/api/products.py
+@@ -1,6 +1,6 @@
+ PRODUCTS = {
+-    "book": {"name": "Book", "price": 500},
+-    "pen": {"name": "Pen", "price": 50},
++        "book": {"name": "Book", "price": 50000},
++    "pen": {"name": "Pen", "price": 5000},
+ }
+ 
+ 
+diff --git a/demo_repo/api/schema.md b/demo_repo/api/schema.md
+index 109398e..50890ad 100644
+--- a/demo_repo/api/schema.md
++++ b/demo_repo/api/schema.md
+@@ -3,4 +3,4 @@
+ GET product returns:
+ - id: string
+ - name: string
+-- price: integer, amount in rupees (500 = Rs. 500)
+\ No newline at end of file
++- price: integer, amount in paise (50000 = Rs. 500)
+\ No newline at end of file
+diff --git a/demo_repo/tests/test_api.py b/demo_repo/tests/test_api.py
+index 05af54f..017289c 100644
+--- a/demo_repo/tests/test_api.py
++++ b/demo_repo/tests/test_api.py
+@@ -2,4 +2,4 @@ from demo_repo.api.products import get_product
+ 
+ 
+ def test_get_product_returns_price():
+-    assert get_product("book")["price"] == 500
+\ No newline at end of file
++    assert get_product("book")["price"] == 50000
+\ No newline at end of file

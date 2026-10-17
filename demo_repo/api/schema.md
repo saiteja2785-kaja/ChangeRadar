@@ -3,4 +3,4 @@
 GET product returns:
 - id: string
 - name: string
-- price: integer, amount in rupees (500 = Rs. 500)
+- price: integer, amount in paise (50000 = Rs. 500)

@@ -1,6 +1,6 @@
 PRODUCTS = {
-    "book": {"name": "Book", "price": 500},
-    "pen": {"name": "Pen", "price": 50},
+        "book": {"name": "Book", "price": 50000},
+    "pen": {"name": "Pen", "price": 5000},
 }
 
 
