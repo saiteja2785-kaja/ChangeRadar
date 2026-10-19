@@ -1,0 +1,443 @@
+{
+  "nodes": [
+    {
+      "id": "file:demo_repo/__init__.py",
+      "type": "file",
+      "path": "demo_repo/__init__.py",
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:demo_repo/api/__init__.py",
+      "type": "file",
+      "path": "demo_repo/api/__init__.py",
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:demo_repo/api/products.py",
+      "type": "file",
+      "path": "demo_repo/api/products.py",
+      "name": "products.py"
+    },
+    {
+      "id": "func:demo_repo/api/products.py::get_product",
+      "type": "function",
+      "path": "demo_repo/api/products.py",
+      "name": "get_product",
+      "line_start": 7,
+      "line_end": 9
+    },
+    {
+      "id": "file:demo_repo/checkout_service/__init__.py",
+      "type": "file",
+      "path": "demo_repo/checkout_service/__init__.py",
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:demo_repo/checkout_service/checkout.py",
+      "type": "file",
+      "path": "demo_repo/checkout_service/checkout.py",
+      "name": "checkout.py"
+    },
+    {
+      "id": "func:demo_repo/checkout_service/checkout.py::checkout_summary",
+      "type": "function",
+      "path": "demo_repo/checkout_service/checkout.py",
+      "name": "checkout_summary",
+      "line_start": 7,
+      "line_end": 12
+    },
+    {
+      "id": "func:demo_repo/checkout_service/checkout.py::shipping_fee",
+      "type": "function",
+      "path": "demo_repo/checkout_service/checkout.py",
+      "name": "shipping_fee",
+      "line_start": 15,
+      "line_end": 17
+    },
+    {
+      "id": "file:demo_repo/invoice_service/__init__.py",
+      "type": "file",
+      "path": "demo_repo/invoice_service/__init__.py",
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:demo_repo/invoice_service/invoice.py",
+      "type": "file",
+      "path": "demo_repo/invoice_service/invoice.py",
+      "name": "invoice.py"
+    },
+    {
+      "id": "func:demo_repo/invoice_service/invoice.py::calculate_total",
+      "type": "function",
+      "path": "demo_repo/invoice_service/invoice.py",
+      "name": "calculate_total",
+      "line_start": 4,
+      "line_end": 10
+    },
+    {
+      "id": "func:demo_repo/invoice_service/invoice.py::format_invoice_line",
+      "type": "function",
+      "path": "demo_repo/invoice_service/invoice.py",
+      "name": "format_invoice_line",
+      "line_start": 13,
+      "line_end": 16
+    },
+    {
+      "id": "file:demo_repo/tests/__init__.py",
+      "type": "file",
+      "path": "demo_repo/tests/__init__.py",
+      "name": "__init__.py"
+    },
+    {
+      "id": "file:demo_repo/tests/test_api.py",
+      "type": "file",
+      "path": "demo_repo/tests/test_api.py",
+      "name": "test_api.py"
+    },
+    {
+      "id": "test:demo_repo/tests/test_api.py::test_get_product_returns_price",
+      "type": "test",
+      "path": "demo_repo/tests/test_api.py",
+      "name": "test_get_product_returns_price",
+      "line_start": 4,
+      "line_end": 5
+    },
+    {
+      "id": "file:demo_repo/tests/test_checkout.py",
+      "type": "file",
+      "path": "demo_repo/tests/test_checkout.py",
+      "name": "test_checkout.py"
+    },
+    {
+      "id": "test:demo_repo/tests/test_checkout.py::test_empty_cart_pays_shipping",
+      "type": "test",
+      "path": "demo_repo/tests/test_checkout.py",
+      "name": "test_empty_cart_pays_shipping",
+      "line_start": 4,
+      "line_end": 5
+    },
+    {
+      "id": "file:demo_repo/tests/test_invoice.py",
+      "type": "file",
+      "path": "demo_repo/tests/test_invoice.py",
+      "name": "test_invoice.py"
+    },
+    {
+      "id": "test:demo_repo/tests/test_invoice.py::test_empty_cart_total_is_zero",
+      "type": "test",
+      "path": "demo_repo/tests/test_invoice.py",
+      "name": "test_empty_cart_total_is_zero",
+      "line_start": 4,
+      "line_end": 5
+    },
+    {
+      "id": "symbol:id",
+      "type": "symbol",
+      "name": "id"
+    },
+    {
+      "id": "symbol:name",
+      "type": "symbol",
+      "name": "name"
+    },
+    {
+      "id": "symbol:price",
+      "type": "symbol",
+      "name": "price"
+    },
+    {
+      "id": "symbol:book",
+      "type": "symbol",
+      "name": "book"
+    },
+    {
+      "id": "symbol:pen",
+      "type": "symbol",
+      "name": "pen"
+    },
+    {
+      "id": "symbol:qty",
+      "type": "symbol",
+      "name": "qty"
+    },
+    {
+      "id": "file:demo_repo/api/schema.md",
+      "type": "schema",
+      "path": "demo_repo/api/schema.md",
+      "name": "schema.md"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:demo_repo/api/products.py",
+      "target": "symbol:book",
+      "type": "references",
+      "line": 2
+    },
+    {
+      "source": "file:demo_repo/api/products.py",
+      "target": "symbol:pen",
+      "type": "references",
+      "line": 3
+    },
+    {
+      "source": "file:demo_repo/api/products.py",
+      "target": "symbol:name",
+      "type": "references",
+      "line": 2
+    },
+    {
+      "source": "file:demo_repo/api/products.py",
+      "target": "symbol:name",
+      "type": "references",
+      "line": 3
+    },
+    {
+      "source": "file:demo_repo/api/products.py",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 2
+    },
+    {
+      "source": "file:demo_repo/api/products.py",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 3
+    },
+    {
+      "source": "func:demo_repo/api/products.py::get_product",
+      "target": "file:demo_repo/api/products.py",
+      "type": "defined_in"
+    },
+    {
+      "source": "func:demo_repo/api/products.py::get_product",
+      "target": "symbol:id",
+      "type": "references",
+      "line": 9
+    },
+    {
+      "source": "func:demo_repo/api/products.py::get_product",
+      "target": "symbol:name",
+      "type": "references",
+      "line": 9
+    },
+    {
+      "source": "func:demo_repo/api/products.py::get_product",
+      "target": "symbol:name",
+      "type": "references",
+      "line": 9
+    },
+    {
+      "source": "func:demo_repo/api/products.py::get_product",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 9
+    },
+    {
+      "source": "func:demo_repo/api/products.py::get_product",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 9
+    },
+    {
+      "source": "func:demo_repo/api/products.py::get_product",
+      "target": "test:demo_repo/tests/test_api.py::test_get_product_returns_price",
+      "type": "tested_by"
+    },
+    {
+      "source": "file:demo_repo/checkout_service/checkout.py",
+      "target": "file:demo_repo/api/products.py",
+      "type": "imports",
+      "line": 1
+    },
+    {
+      "source": "file:demo_repo/checkout_service/checkout.py",
+      "target": "file:demo_repo/invoice_service/invoice.py",
+      "type": "imports",
+      "line": 2
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::checkout_summary",
+      "target": "file:demo_repo/checkout_service/checkout.py",
+      "type": "defined_in"
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::checkout_summary",
+      "target": "func:demo_repo/api/products.py::get_product",
+      "type": "calls",
+      "line": 10
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::checkout_summary",
+      "target": "symbol:name",
+      "type": "references",
+      "line": 11
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::checkout_summary",
+      "target": "symbol:name",
+      "type": "references",
+      "line": 11
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::checkout_summary",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 11
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::checkout_summary",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 11
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::checkout_summary",
+      "target": "symbol:qty",
+      "type": "references",
+      "line": 11
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::shipping_fee",
+      "target": "file:demo_repo/checkout_service/checkout.py",
+      "type": "defined_in"
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::shipping_fee",
+      "target": "func:demo_repo/invoice_service/invoice.py::calculate_total",
+      "type": "calls",
+      "line": 16
+    },
+    {
+      "source": "func:demo_repo/checkout_service/checkout.py::shipping_fee",
+      "target": "test:demo_repo/tests/test_checkout.py::test_empty_cart_pays_shipping",
+      "type": "tested_by"
+    },
+    {
+      "source": "file:demo_repo/invoice_service/invoice.py",
+      "target": "file:demo_repo/api/products.py",
+      "type": "imports",
+      "line": 1
+    },
+    {
+      "source": "func:demo_repo/invoice_service/invoice.py::calculate_total",
+      "target": "file:demo_repo/invoice_service/invoice.py",
+      "type": "defined_in"
+    },
+    {
+      "source": "func:demo_repo/invoice_service/invoice.py::calculate_total",
+      "target": "func:demo_repo/api/products.py::get_product",
+      "type": "calls",
+      "line": 8
+    },
+    {
+      "source": "func:demo_repo/invoice_service/invoice.py::calculate_total",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 9
+    },
+    {
+      "source": "func:demo_repo/invoice_service/invoice.py::calculate_total",
+      "target": "test:demo_repo/tests/test_invoice.py::test_empty_cart_total_is_zero",
+      "type": "tested_by"
+    },
+    {
+      "source": "func:demo_repo/invoice_service/invoice.py::format_invoice_line",
+      "target": "file:demo_repo/invoice_service/invoice.py",
+      "type": "defined_in"
+    },
+    {
+      "source": "func:demo_repo/invoice_service/invoice.py::format_invoice_line",
+      "target": "func:demo_repo/api/products.py::get_product",
+      "type": "calls",
+      "line": 14
+    },
+    {
+      "source": "func:demo_repo/invoice_service/invoice.py::format_invoice_line",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 15
+    },
+    {
+      "source": "func:demo_repo/invoice_service/invoice.py::format_invoice_line",
+      "target": "symbol:name",
+      "type": "references",
+      "line": 16
+    },
+    {
+      "source": "file:demo_repo/tests/test_api.py",
+      "target": "file:demo_repo/api/products.py",
+      "type": "imports",
+      "line": 1
+    },
+    {
+      "source": "test:demo_repo/tests/test_api.py::test_get_product_returns_price",
+      "target": "file:demo_repo/tests/test_api.py",
+      "type": "defined_in"
+    },
+    {
+      "source": "test:demo_repo/tests/test_api.py::test_get_product_returns_price",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 5
+    },
+    {
+      "source": "test:demo_repo/tests/test_api.py::test_get_product_returns_price",
+      "target": "func:demo_repo/api/products.py::get_product",
+      "type": "calls",
+      "line": 5
+    },
+    {
+      "source": "file:demo_repo/tests/test_checkout.py",
+      "target": "file:demo_repo/checkout_service/checkout.py",
+      "type": "imports",
+      "line": 1
+    },
+    {
+      "source": "test:demo_repo/tests/test_checkout.py::test_empty_cart_pays_shipping",
+      "target": "file:demo_repo/tests/test_checkout.py",
+      "type": "defined_in"
+    },
+    {
+      "source": "test:demo_repo/tests/test_checkout.py::test_empty_cart_pays_shipping",
+      "target": "func:demo_repo/checkout_service/checkout.py::shipping_fee",
+      "type": "calls",
+      "line": 5
+    },
+    {
+      "source": "file:demo_repo/tests/test_invoice.py",
+      "target": "file:demo_repo/invoice_service/invoice.py",
+      "type": "imports",
+      "line": 1
+    },
+    {
+      "source": "test:demo_repo/tests/test_invoice.py::test_empty_cart_total_is_zero",
+      "target": "file:demo_repo/tests/test_invoice.py",
+      "type": "defined_in"
+    },
+    {
+      "source": "test:demo_repo/tests/test_invoice.py::test_empty_cart_total_is_zero",
+      "target": "func:demo_repo/invoice_service/invoice.py::calculate_total",
+      "type": "calls",
+      "line": 5
+    },
+    {
+      "source": "file:demo_repo/api/schema.md",
+      "target": "symbol:id",
+      "type": "references",
+      "line": 4
+    },
+    {
+      "source": "file:demo_repo/api/schema.md",
+      "target": "symbol:name",
+      "type": "references",
+      "line": 5
+    },
+    {
+      "source": "file:demo_repo/api/schema.md",
+      "target": "symbol:price",
+      "type": "references",
+      "line": 6
+    }
+  ]
+}
