@@ -1,0 +1,400 @@
+{
+  "change": {
+    "changed_files": [
+      "demo_repo/api/products.py",
+      "demo_repo/api/schema.md",
+      "demo_repo/tests/test_api.py"
+    ],
+    "changed_symbols": [
+      "price"
+    ],
+    "changed_contract_files": [
+      "demo_repo/api/schema.md"
+    ],
+    "change_summary": "3 file(s) changed: demo_repo/api/products.py, demo_repo/api/schema.md, demo_repo/tests/test_api.py. Changed symbols/fields: price. Value change: price: 500 -> 50000 Value change: price: 50 -> 5000 Value change: price: integer, amount in rupees (500 = Rs. 500) -> integer, amount in paise (50000 = Rs. 500) Contract files changed: demo_repo/api/schema.md. Tests touched: demo_repo/tests/test_api.py::test_get_product_returns_price.",
+    "touched_tests": [
+      "demo_repo/tests/test_api.py::test_get_product_returns_price"
+    ]
+  },
+  "report": {
+    "summary": "3 file(s) changed: demo_repo/api/products.py, demo_repo/api/schema.md, demo_repo/tests/test_api.py. Changed symbols/fields: price. Value change: price: 500 -> 50000 Value change: price: 50 -> 5000 Value change: price: integer, amount in rupees (500 = Rs. 500) -> integer, amount in paise (50000 = Rs. 500) Contract files changed: demo_repo/api/schema.md. Tests touched: demo_repo/tests/test_api.py::test_get_product_returns_price.",
+    "findings": [
+      {
+        "component": "demo_repo/invoice_service/invoice.py::calculate_total",
+        "risk_level": "high",
+        "rationale": "Risk score 12 -> high (high >= 10, medium >= 5). dependency +3 (reads the changed field directly); contract +2 (the contract changed in this diff but this component was not part of the change); handling +2 (no sign in its code that it adapts to the change); calculation +3 (does arithmetic or comparisons, so a wrong value changes results); tests +1 (tests call it but never mention the changed field); callers +1 (called by 1 other function(s), so a wrong value propagates).",
+        "evidence": [
+          {
+            "source_tool": "trace_consumers",
+            "file_path": "demo_repo/invoice_service/invoice.py",
+            "line_start": 9,
+            "line_end": 9,
+            "excerpt": "total += product[\"price\"] * qty",
+            "note": "calculate_total reads the changed field 'price' directly"
+          },
+          {
+            "source_tool": "inspect_contract",
+            "file_path": "demo_repo/api/schema.md",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "- price: integer, amount in paise (50000 = Rs. 500)",
+            "note": "Contract documents 'price' (this contract file was changed in the diff)"
+          },
+          {
+            "source_tool": "inspect_callers",
+            "file_path": "demo_repo/invoice_service/invoice.py",
+            "line_start": 8,
+            "line_end": 8,
+            "excerpt": "product = get_product(product_id)",
+            "note": "calculate_total calls get_product, which is changed or reads a changed field; check how it interprets the returned value"
+          },
+          {
+            "source_tool": "find_related_tests",
+            "file_path": "demo_repo/tests/test_invoice.py",
+            "line_start": 4,
+            "line_end": 5,
+            "excerpt": "def test_empty_cart_total_is_zero():\n    assert calculate_total([]) == 0",
+            "note": "test_empty_cart_total_is_zero (calls calculate_total) never mentions 'price'; the changed convention is likely untested here"
+          }
+        ],
+        "uncertainty": "This is a static estimate from code structure, not proof of a runtime failure.",
+        "insufficient_evidence": false
+      },
+      {
+        "component": "demo_repo/invoice_service/invoice.py::format_invoice_line",
+        "risk_level": "high",
+        "rationale": "Risk score 12 -> high (high >= 10, medium >= 5). dependency +3 (reads the changed field directly); contract +2 (the contract changed in this diff but this component was not part of the change); handling +2 (no sign in its code that it adapts to the change); calculation +3 (does arithmetic or comparisons, so a wrong value changes results); tests +2 (no test calls it directly); callers +0 (no other function calls it).",
+        "evidence": [
+          {
+            "source_tool": "trace_consumers",
+            "file_path": "demo_repo/invoice_service/invoice.py",
+            "line_start": 15,
+            "line_end": 15,
+            "excerpt": "amount = product[\"price\"] * qty",
+            "note": "format_invoice_line reads the changed field 'price' directly"
+          },
+          {
+            "source_tool": "inspect_contract",
+            "file_path": "demo_repo/api/schema.md",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "- price: integer, amount in paise (50000 = Rs. 500)",
+            "note": "Contract documents 'price' (this contract file was changed in the diff)"
+          },
+          {
+            "source_tool": "inspect_callers",
+            "file_path": "demo_repo/invoice_service/invoice.py",
+            "line_start": 14,
+            "line_end": 14,
+            "excerpt": "product = get_product(product_id)",
+            "note": "format_invoice_line calls get_product, which is changed or reads a changed field; check how it interprets the returned value"
+          },
+          {
+            "source_tool": "find_related_tests",
+            "file_path": "demo_repo/invoice_service/invoice.py",
+            "line_start": 13,
+            "line_end": 16,
+            "excerpt": "def format_invoice_line(product_id, qty):\n    product = get_product(product_id)\n    amount = product[\"price\"] * qty\n    return f\"{product['name']} x{qty}: Rs. {amount}\"",
+            "note": "No test calls format_invoice_line directly, but it is affected by the change"
+          }
+        ],
+        "uncertainty": "This is a static estimate from code structure, not proof of a runtime failure.",
+        "insufficient_evidence": false
+      },
+      {
+        "component": "demo_repo/checkout_service/checkout.py::shipping_fee",
+        "risk_level": "high",
+        "rationale": "Risk score 10 -> high (high >= 10, medium >= 5). dependency +2 (calls code that reads the changed field (1 hop)); contract +2 (the contract changed in this diff but this component was not part of the change); handling +2 (no sign in its code that it adapts to the change); calculation +3 (does arithmetic or comparisons, so a wrong value changes results); tests +1 (tests call it but never mention the changed field); callers +0 (no other function calls it).",
+        "evidence": [
+          {
+            "source_tool": "trace_consumers",
+            "file_path": "demo_repo/checkout_service/checkout.py",
+            "line_start": 16,
+            "line_end": 16,
+            "excerpt": "total = calculate_total(items)",
+            "note": "shipping_fee calls calculate_total, which uses 'price' (indirect, depth 1)"
+          },
+          {
+            "source_tool": "inspect_contract",
+            "file_path": "demo_repo/api/schema.md",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "- price: integer, amount in paise (50000 = Rs. 500)",
+            "note": "Contract documents 'price' (this contract file was changed in the diff)"
+          },
+          {
+            "source_tool": "find_related_tests",
+            "file_path": "demo_repo/tests/test_checkout.py",
+            "line_start": 4,
+            "line_end": 5,
+            "excerpt": "def test_empty_cart_pays_shipping():\n    assert shipping_fee([]) == 40",
+            "note": "test_empty_cart_pays_shipping (calls shipping_fee) never mentions 'price'; the changed convention is likely untested here"
+          }
+        ],
+        "uncertainty": "This is a static estimate from code structure, not proof of a runtime failure.",
+        "insufficient_evidence": false
+      },
+      {
+        "component": "demo_repo/checkout_service/checkout.py::checkout_summary",
+        "risk_level": "medium",
+        "rationale": "Risk score 9 -> medium (high >= 10, medium >= 5). dependency +3 (reads the changed field directly); contract +2 (the contract changed in this diff but this component was not part of the change); handling +2 (no sign in its code that it adapts to the change); calculation +0 (only passes data through (no arithmetic or comparison)); tests +2 (no test calls it directly); callers +0 (no other function calls it).",
+        "evidence": [
+          {
+            "source_tool": "trace_consumers",
+            "file_path": "demo_repo/checkout_service/checkout.py",
+            "line_start": 11,
+            "line_end": 11,
+            "excerpt": "lines.append({\"name\": product[\"name\"], \"price\": product[\"price\"], \"qty\": qty})",
+            "note": "checkout_summary reads the changed field 'price' directly"
+          },
+          {
+            "source_tool": "inspect_contract",
+            "file_path": "demo_repo/api/schema.md",
+            "line_start": 6,
+            "line_end": 6,
+            "excerpt": "- price: integer, amount in paise (50000 = Rs. 500)",
+            "note": "Contract documents 'price' (this contract file was changed in the diff)"
+          },
+          {
+            "source_tool": "inspect_callers",
+            "file_path": "demo_repo/checkout_service/checkout.py",
+            "line_start": 10,
+            "line_end": 10,
+            "excerpt": "product = get_product(product_id)",
+            "note": "checkout_summary calls get_product, which is changed or reads a changed field; check how it interprets the returned value"
+          },
+          {
+            "source_tool": "find_related_tests",
+            "file_path": "demo_repo/checkout_service/checkout.py",
+            "line_start": 7,
+            "line_end": 12,
+            "excerpt": "def checkout_summary(items):\n    lines = []\n    for product_id, qty in items:\n        product = get_product(product_id)\n        lines.append({\"name\": product[\"name\"], \"price\": product[\"price\"], \"qty\": qty})\n    return lines",
+            "note": "No test calls checkout_summary directly, but it is affected by the change"
+          }
+        ],
+        "uncertainty": "This is a static estimate from code structure, not proof of a runtime failure.",
+        "insufficient_evidence": false
+      }
+    ],
+    "decision_trace": [
+      {
+        "step": 1,
+        "options": [
+          "trace_consumers",
+          "inspect_contract",
+          "find_related_tests",
+          "inspect_callers",
+          "finish_analysis"
+        ],
+        "chosen": "trace_consumers",
+        "confidence": 0.4387,
+        "fallback_used": false,
+        "probabilities": {
+          "trace_consumers": 0.551,
+          "inspect_contract": 0.2559,
+          "find_related_tests": 0.0399,
+          "inspect_callers": 0.146,
+          "finish_analysis": 0.0072
+        },
+        "reason": "Decider chose trace_consumers with confidence 0.44",
+        "latency_ms": 39925.74
+      },
+      {
+        "step": 2,
+        "options": [
+          "inspect_contract",
+          "find_related_tests",
+          "inspect_callers",
+          "finish_analysis"
+        ],
+        "chosen": "inspect_contract",
+        "confidence": 0.3287,
+        "fallback_used": true,
+        "probabilities": {
+          "inspect_contract": 0.4152,
+          "find_related_tests": 0.0781,
+          "inspect_callers": 0.4965,
+          "finish_analysis": 0.0101
+        },
+        "reason": "Confidence 0.33 is below the threshold 0.40; used the fallback order",
+        "latency_ms": 30693.62
+      },
+      {
+        "step": 3,
+        "options": [
+          "find_related_tests",
+          "inspect_callers",
+          "finish_analysis"
+        ],
+        "chosen": "inspect_callers",
+        "confidence": 0.7893,
+        "fallback_used": false,
+        "probabilities": {
+          "find_related_tests": 0.1253,
+          "inspect_callers": 0.8595,
+          "finish_analysis": 0.0152
+        },
+        "reason": "Decider chose inspect_callers with confidence 0.79",
+        "latency_ms": 31717.34
+      },
+      {
+        "step": 4,
+        "options": [
+          "find_related_tests",
+          "finish_analysis"
+        ],
+        "chosen": "find_related_tests",
+        "confidence": 0.8954,
+        "fallback_used": false,
+        "probabilities": {
+          "find_related_tests": 0.9477,
+          "finish_analysis": 0.0523
+        },
+        "reason": "Decider chose find_related_tests with confidence 0.90",
+        "latency_ms": 35006.04
+      },
+      {
+        "step": 5,
+        "options": [
+          "finish_analysis"
+        ],
+        "chosen": "finish_analysis",
+        "confidence": 1.0,
+        "fallback_used": false,
+        "probabilities": {},
+        "reason": "Only one option is allowed, so no model call was needed",
+        "latency_ms": null
+      }
+    ],
+    "missing_tests": [
+      "demo_repo/invoice_service/invoice.py::format_invoice_line: no test calls it directly",
+      "demo_repo/checkout_service/checkout.py::checkout_summary: no test calls it directly"
+    ],
+    "recommended_tests": [
+      "Extend test_empty_cart_total_is_zero to cover the new value convention for price.",
+      "Add a test for format_invoice_line: use the new value convention for price and assert the expected result.",
+      "Extend test_empty_cart_pays_shipping to cover the new value convention for price.",
+      "Add a test for checkout_summary: use the new value convention for price and assert the expected result."
+    ],
+    "open_questions": [
+      "Does calculate_total convert to the new value convention? No conversion was found in its code.",
+      "Does format_invoice_line convert to the new value convention? No conversion was found in its code.",
+      "Does shipping_fee convert to the new value convention? No conversion was found in its code.",
+      "Does checkout_summary convert to the new value convention? No conversion was found in its code.",
+      "Dynamic access and code in other languages are not visible to this static analysis."
+    ]
+  },
+  "tools_run": [
+    "trace_consumers",
+    "inspect_contract",
+    "inspect_callers",
+    "find_related_tests"
+  ],
+  "stop_reason": "Only one option is allowed, so no model call was needed",
+  "evidence": [
+    {
+      "source_tool": "trace_consumers",
+      "file_path": "demo_repo/checkout_service/checkout.py",
+      "line_start": 11,
+      "line_end": 11,
+      "excerpt": "lines.append({\"name\": product[\"name\"], \"price\": product[\"price\"], \"qty\": qty})",
+      "note": "checkout_summary reads the changed field 'price' directly"
+    },
+    {
+      "source_tool": "trace_consumers",
+      "file_path": "demo_repo/checkout_service/checkout.py",
+      "line_start": 16,
+      "line_end": 16,
+      "excerpt": "total = calculate_total(items)",
+      "note": "shipping_fee calls calculate_total, which uses 'price' (indirect, depth 1)"
+    },
+    {
+      "source_tool": "trace_consumers",
+      "file_path": "demo_repo/invoice_service/invoice.py",
+      "line_start": 9,
+      "line_end": 9,
+      "excerpt": "total += product[\"price\"] * qty",
+      "note": "calculate_total reads the changed field 'price' directly"
+    },
+    {
+      "source_tool": "trace_consumers",
+      "file_path": "demo_repo/invoice_service/invoice.py",
+      "line_start": 15,
+      "line_end": 15,
+      "excerpt": "amount = product[\"price\"] * qty",
+      "note": "format_invoice_line reads the changed field 'price' directly"
+    },
+    {
+      "source_tool": "inspect_contract",
+      "file_path": "demo_repo/api/schema.md",
+      "line_start": 6,
+      "line_end": 6,
+      "excerpt": "- price: integer, amount in paise (50000 = Rs. 500)",
+      "note": "Contract documents 'price' (this contract file was changed in the diff)"
+    },
+    {
+      "source_tool": "inspect_callers",
+      "file_path": "demo_repo/checkout_service/checkout.py",
+      "line_start": 10,
+      "line_end": 10,
+      "excerpt": "product = get_product(product_id)",
+      "note": "checkout_summary calls get_product, which is changed or reads a changed field; check how it interprets the returned value"
+    },
+    {
+      "source_tool": "inspect_callers",
+      "file_path": "demo_repo/invoice_service/invoice.py",
+      "line_start": 8,
+      "line_end": 8,
+      "excerpt": "product = get_product(product_id)",
+      "note": "calculate_total calls get_product, which is changed or reads a changed field; check how it interprets the returned value"
+    },
+    {
+      "source_tool": "inspect_callers",
+      "file_path": "demo_repo/invoice_service/invoice.py",
+      "line_start": 14,
+      "line_end": 14,
+      "excerpt": "product = get_product(product_id)",
+      "note": "format_invoice_line calls get_product, which is changed or reads a changed field; check how it interprets the returned value"
+    },
+    {
+      "source_tool": "find_related_tests",
+      "file_path": "demo_repo/tests/test_api.py",
+      "line_start": 4,
+      "line_end": 5,
+      "excerpt": "def test_get_product_returns_price():\n    assert get_product(\"book\")[\"price\"] == 50000",
+      "note": "test_get_product_returns_price (references the field) references 'price'; confirm it checks the new convention"
+    },
+    {
+      "source_tool": "find_related_tests",
+      "file_path": "demo_repo/tests/test_checkout.py",
+      "line_start": 4,
+      "line_end": 5,
+      "excerpt": "def test_empty_cart_pays_shipping():\n    assert shipping_fee([]) == 40",
+      "note": "test_empty_cart_pays_shipping (calls shipping_fee) never mentions 'price'; the changed convention is likely untested here"
+    },
+    {
+      "source_tool": "find_related_tests",
+      "file_path": "demo_repo/tests/test_invoice.py",
+      "line_start": 4,
+      "line_end": 5,
+      "excerpt": "def test_empty_cart_total_is_zero():\n    assert calculate_total([]) == 0",
+      "note": "test_empty_cart_total_is_zero (calls calculate_total) never mentions 'price'; the changed convention is likely untested here"
+    },
+    {
+      "source_tool": "find_related_tests",
+      "file_path": "demo_repo/checkout_service/checkout.py",
+      "line_start": 7,
+      "line_end": 12,
+      "excerpt": "def checkout_summary(items):\n    lines = []\n    for product_id, qty in items:\n        product = get_product(product_id)\n        lines.append({\"name\": product[\"name\"], \"price\": product[\"price\"], \"qty\": qty})\n    return lines",
+      "note": "No test calls checkout_summary directly, but it is affected by the change"
+    },
+    {
+      "source_tool": "find_related_tests",
+      "file_path": "demo_repo/invoice_service/invoice.py",
+      "line_start": 13,
+      "line_end": 16,
+      "excerpt": "def format_invoice_line(product_id, qty):\n    product = get_product(product_id)\n    amount = product[\"price\"] * qty\n    return f\"{product['name']} x{qty}: Rs. {amount}\"",
+      "note": "No test calls format_invoice_line directly, but it is affected by the change"
+    }
+  ]
+}
