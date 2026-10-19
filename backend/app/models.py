@@ -34,6 +34,9 @@ class DecisionStep(BaseModel):
     chosen: str
     confidence: float
     fallback_used: bool = False
+    probabilities: dict[str, float] = {}
+    reason: str = ""
+    latency_ms: Optional[float] = None
 
 
 class Report(BaseModel):
