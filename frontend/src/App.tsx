@@ -6,7 +6,7 @@ import "./App.css";
 type Obj = any;
 
 const API = (import.meta.env.VITE_API as string | undefined) ?? "http://localhost:8001";
-
+const API = (import.meta.env.VITE_API as string | undefined) ?? (import.meta.env.PROD ? "" : "http://localhost:8001");
 async function api(path: string, init?: RequestInit): Promise<Obj> {
   const res = await fetch(API + path, init);
   if (!res.ok) {
