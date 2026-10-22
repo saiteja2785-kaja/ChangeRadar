@@ -24,6 +24,12 @@ from fastapi import FastAPI, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import os
+from fastapi.staticfiles import StaticFiles
+
+_dist = os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist")
+if os.path.isdir(_dist):
+    app.mount("/", StaticFiles(directory=_dist, html=True), name="ui")
 
 app = FastAPI(title="ChangeRadar")
 app.add_middleware(
