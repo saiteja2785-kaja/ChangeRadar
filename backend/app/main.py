@@ -18,18 +18,17 @@ import threading
 import traceback
 import uuid
 from datetime import datetime
+import os
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import os
+
 from fastapi.staticfiles import StaticFiles
 
-_dist = os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist")
-if os.path.isdir(_dist):
-    app.mount("/", StaticFiles(directory=_dist, html=True), name="ui")
+
 
 app = FastAPI(title="ChangeRadar")
 app.add_middleware(
@@ -146,3 +145,9 @@ def get_run(run_id: str):
     if not p.exists() or "/" in run_id or "\\" in run_id or ".." in run_id:
         raise HTTPException(404, "run not found")
     return json.loads(p.read_text(encoding="utf-8"))
+
+
+
+_dist = os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist")
+if os.path.isdir(_dist):
+    app.mount("/", StaticFiles(directory=_dist, html=True), name="ui")
